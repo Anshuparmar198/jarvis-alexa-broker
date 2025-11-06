@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: jarvis-alexa-broker
+    env: python
+    plan: free
+    # Use gunicorn to run the Flask app; Render will set PORT env var
+    startCommand: gunicorn "alexa_bridge:app" --bind 0.0.0.0:$PORT --workers 2
+    envVars:
+      - key: BROKER_SECRET
+        value: "CHANGE_THIS_TO_A_STRONG_SECRET"
+      - key: BRIDGE_DEBUG
+        value: "1"
+      - key: RUN_MODE
+        value: "bridge_run"   # or "poller_only"
+      - key: JARVIS_FOLDER
+        value: "C:\\Users\\gamin\\Desktop\\MYAi\\jarvis"
+      - key: MAIN_JARVIS_FILE
+        value: "main_ai.pyw"
+      - key: USE_CLI_ARGS
+        value: "0"
